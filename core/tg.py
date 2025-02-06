@@ -6,7 +6,7 @@ logging = logging_config.setup_logging(__name__)
 
 app = Client("bot", api_id=Config.tg_id, api_hash=Config.tg_hash, bot_token=Config.tg_token)
 
-@app.on_message(filters.command("all", prefixes=["/", "@", "#"]))
+@app.on_message(filters.regex(r"^(?:[/@#])all") & filters.group)
 async def handle_all(client, message):
     chat_id = message.chat.id
     members = client.get_chat_members(chat_id)
@@ -21,7 +21,7 @@ async def handle_all(client, message):
             text += f"Unknown\n"
     await client.send_message(text=text, chat_id=chat_id)
 
-@app.on_message(filters.command("admins", prefixes=["/", "@", "#"]))
+@app.on_message(filters.regex(r"^(?:[/@#])admins") & filters.group)
 async def handle_admin(client, message):
     chat_id = message.chat.id
     admins = client.get_chat_members(chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS)
