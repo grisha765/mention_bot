@@ -16,7 +16,7 @@ async def handle_all(client, message):
         if user.username:
             text += f"@{user.username}\n"
         elif user.first_name:
-            text += f"{user.first_name}\n"
+            text += f"[{user.first_name}](tg://user?id={user.id})\n"
         else:
             text += f"Unknown\n"
     await client.send_message(text=text, chat_id=chat_id)
@@ -32,7 +32,7 @@ async def handle_admin(client, message):
         if user.username:
             text += f"@{user.username}\n"
         elif user.first_name:
-            text += f"{user.first_name}\n"
+            text += f"[{user.first_name}](tg://user?id={user.id})\n"
         else:
             text += "Unknown\n"
     
