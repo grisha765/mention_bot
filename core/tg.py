@@ -10,15 +10,15 @@ app = Client("bot", api_id=Config.tg_id, api_hash=Config.tg_hash, bot_token=Conf
 async def handle_all(client, message):
     chat_id = message.chat.id
     members = client.get_chat_members(chat_id)
-    text = "Members:\n"
+    text = "Members: "
     async for member in members:
         user = member.user
         if user.username:
-            text += f"@{user.username}\n"
+            text += f"[{user.username}](tg://user?id={user.id}) "
         elif user.first_name:
-            text += f"[{user.first_name}](tg://user?id={user.id})\n"
+            text += f"[{user.first_name}](tg://user?id={user.id}) "
         else:
-            text += f"Unknown\n"
+            text += f"Unknown "
     await client.send_message(text=text, chat_id=chat_id)
 
 @app.on_message(filters.regex(r"^(?:[/@#])admins") & filters.group)
@@ -26,15 +26,15 @@ async def handle_admin(client, message):
     chat_id = message.chat.id
     admins = client.get_chat_members(chat_id, filter=enums.ChatMembersFilter.ADMINISTRATORS)
     
-    text = "Admins:\n"
+    text = "Admins: "
     async for member in admins:
         user = member.user
         if user.username:
-            text += f"@{user.username}\n"
+            text += f"[{user.username}](tg://user?id={user.id}) "
         elif user.first_name:
-            text += f"[{user.first_name}](tg://user?id={user.id})\n"
+            text += f"[{user.first_name}](tg://user?id={user.id}) "
         else:
-            text += "Unknown\n"
+            text += "Unknown "
     
     await client.send_message(text=text, chat_id=chat_id)
 
