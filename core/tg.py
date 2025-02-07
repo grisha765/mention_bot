@@ -10,15 +10,15 @@ app = Client("bot", api_id=Config.tg_id, api_hash=Config.tg_hash, bot_token=Conf
 async def handle_all(client, message):
     chat_id = message.chat.id
     members = client.get_chat_members(chat_id)
-    text = "Members: "
+    text = "Notifying all members"
     async for member in members:
         user = member.user
         if user.username:
-            text += f"[{user.username}](tg://user?id={user.id}) "
+            text += f"[.](tg://user?id={user.id})"
         elif user.first_name:
-            text += f"[{user.first_name}](tg://user?id={user.id}) "
+            text += f"[.](tg://user?id={user.id})"
         else:
-            text += f"Unknown "
+            text += f""
     await client.send_message(text=text, chat_id=chat_id)
 
 @app.on_message(filters.regex(r"^(?:[/@#])admins") & filters.group)
