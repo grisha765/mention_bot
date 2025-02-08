@@ -14,5 +14,7 @@ ENV PYTHONUNBUFFERED=1
 
 ENV PYTHONDONTWRITEBYTECODE=1
 
+ENV DB_PATH="/app/database/mention_bot.db"
+
 CMD ["python", "main.py"]
 
