@@ -38,8 +38,10 @@ python3 -m venv .venv
 
 - Run bot:
     ```bash
+    mkdir -p $HOME/database/ && \
     podman run -d \
     --name mention_bot \
+    -v $HOME/database:/app/database:z \
     -e TG_TOKEN="your_telegram_bot_token" \
     ghcr.io/grisha765/mention_bot:latest
     ```
